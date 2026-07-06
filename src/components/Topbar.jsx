@@ -8,7 +8,7 @@ function Topbar() {
 
         localStorage.removeItem("token");
 
-        navigate("/");
+        navigate("/login");
 
     };
 
@@ -18,49 +18,29 @@ function Topbar() {
 
             <div className="topbar-left">
 
-                <h1>
+                <h2>Investment Dashboard</h2>
 
-                    Investment Dashboard
-
-                </h1>
-
-                <p>
-
-                    Welcome back! Here's today's investment overview.
-
-                </p>
+                <p>Welcome back! Here's today's investment overview.</p>
 
             </div>
 
             <div className="topbar-right">
 
-                <div className="notification">
-
+                <div className="notify">
                     🔔
-
                 </div>
 
-                <div className="profile-mini">
+                <div className="user-box">
 
                     <div className="avatar">
-
                         A
-
                     </div>
 
-                    <div>
+                    <div className="user-info">
 
-                        <h4>
+                        <h4>Atiq</h4>
 
-                            Atiq
-
-                        </h4>
-
-                        <span>
-
-                            Investor
-
-                        </span>
+                        <span>Investor</span>
 
                     </div>
 
@@ -70,9 +50,7 @@ function Topbar() {
                     className="logout-btn"
                     onClick={logout}
                 >
-
                     Logout
-
                 </button>
 
             </div>

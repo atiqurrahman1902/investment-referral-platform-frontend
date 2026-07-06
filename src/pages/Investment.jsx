@@ -3,104 +3,193 @@ import "../styles/investment.css";
 
 function Investment() {
 
-  const [amount, setAmount] = useState("");
-  const [plan, setPlan] = useState("Basic");
-  const [duration, setDuration] = useState("1");
+    const [amount,setAmount]=useState("");
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    alert("Investment Created Successfully");
-  };
+    const [plan,setPlan]=useState("Basic");
 
-  return (
-    <div className="investment-page">
+    const [duration,setDuration]=useState("1");
 
-      <div className="page-header">
-        <h1>💰 Create Investment</h1>
-        <p>
-          Start growing your wealth by choosing an investment plan.
-        </p>
-      </div>
+    const invest=(e)=>{
 
-      <div className="investment-card">
+        e.preventDefault();
 
-        <form onSubmit={submitHandler}>
+        alert("Investment Created Successfully");
 
-          <div className="form-group">
-            <label>Investment Amount</label>
+    }
 
-            <input
-              type="number"
-              placeholder="Enter Amount"
-              value={amount}
-              onChange={(e)=>setAmount(e.target.value)}
-            />
-          </div>
+    return(
 
-          <div className="form-group">
+<div className="investment-page">
 
-            <label>Select Plan</label>
+<div className="page-header">
 
-            <select
-              value={plan}
-              onChange={(e)=>setPlan(e.target.value)}
-            >
-              <option>Basic</option>
-              <option>Silver</option>
-              <option>Gold</option>
-              <option>Diamond</option>
-            </select>
+<h1>💰 Create Investment</h1>
 
-          </div>
+<p>
 
-          <div className="form-group">
+Start growing your wealth by investing in one of our plans.
 
-            <label>Investment Duration</label>
+</p>
 
-            <select
-              value={duration}
-              onChange={(e)=>setDuration(e.target.value)}
-            >
-              <option value="1">1 Month</option>
-              <option value="3">3 Months</option>
-              <option value="6">6 Months</option>
-              <option value="12">12 Months</option>
-            </select>
+</div>
 
-          </div>
+<div className="investment-layout">
 
-          <div className="roi-box">
+<div className="investment-form-card">
 
-            <div>
+<h2>Create New Investment</h2>
 
-              <span>Expected ROI</span>
+<form onSubmit={invest}>
 
-              <h2>₹500</h2>
+<label>Investment Amount</label>
 
-            </div>
+<input
+type="number"
+placeholder="Enter Amount"
+value={amount}
+onChange={(e)=>setAmount(e.target.value)}
+required
+/>
 
-            <div>
+<label>Select Plan</label>
 
-              <span>Plan</span>
+<select
+value={plan}
+onChange={(e)=>setPlan(e.target.value)}
+>
 
-              <h2>{plan}</h2>
+<option>Basic</option>
 
-            </div>
+<option>Silver</option>
 
-          </div>
+<option>Gold</option>
 
-          <button className="submit-btn">
+<option>Diamond</option>
 
-            🚀 Invest Now
+</select>
 
-          </button>
+<label>Duration</label>
 
-        </form>
+<select
+value={duration}
+onChange={(e)=>setDuration(e.target.value)}
+>
 
-      </div>
+<option>1 Month</option>
 
-    </div>
-  );
+<option>3 Months</option>
+
+<option>6 Months</option>
+
+<option>12 Months</option>
+
+</select>
+
+<button>
+
+Invest Now
+
+</button>
+
+</form>
+
+</div>
+
+<div className="plan-card">
+
+<h2>
+
+Investment Benefits
+
+</h2>
+
+<div className="benefit">
+
+✅ Daily ROI Distribution
+
+</div>
+
+<div className="benefit">
+
+💰 Secure Investment
+
+</div>
+
+<div className="benefit">
+
+👥 Referral Commission
+
+</div>
+
+<div className="benefit">
+
+📈 Automatic ROI
+
+</div>
+
+<div className="benefit">
+
+🏦 Withdraw Anytime
+
+</div>
+
+<div className="benefit">
+
+🔒 Bank Level Security
+
+</div>
+
+</div>
+
+</div>
+
+<div className="plans">
+
+<div className="plan">
+
+<h3>Basic</h3>
+
+<h2>5%</h2>
+
+<p>Monthly ROI</p>
+
+</div>
+
+<div className="plan">
+
+<h3>Silver</h3>
+
+<h2>8%</h2>
+
+<p>Monthly ROI</p>
+
+</div>
+
+<div className="plan">
+
+<h3>Gold</h3>
+
+<h2>12%</h2>
+
+<p>Monthly ROI</p>
+
+</div>
+
+<div className="plan">
+
+<h3>Diamond</h3>
+
+<h2>18%</h2>
+
+<p>Monthly ROI</p>
+
+</div>
+
+</div>
+
+</div>
+
+    )
 
 }
 

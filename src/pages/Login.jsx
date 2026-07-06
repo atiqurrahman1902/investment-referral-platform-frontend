@@ -1,83 +1,156 @@
 import { useState } from "react";
-import API from "../services/api";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
 function Login() {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
-  // Password Show/Hide
-  const [showPassword, setShowPassword] = useState(false);
+    const [formData, setFormData] = useState({
 
-  const handleLogin = async () => {
+        email: "",
 
-    try {
+        password: ""
 
-      const response = await API.post("/auth/login", {
-        email,
-        password,
-      });
+    });
 
-      localStorage.setItem("token", response.data.token);
+    const handleChange = (e) => {
 
-      alert("Login Successful");
+        setFormData({
 
-      navigate("/dashboard");
+            ...formData,
 
-    } catch (error) {
+            [e.target.name]: e.target.value
 
-      alert(error.response?.data?.message || "Invalid Login");
+        });
 
-    }
+    };
 
-  };
+    const handleSubmit = (e) => {
 
-  return (
+        e.preventDefault();
 
-    <div className="form">
+        // Temporary Login
 
-      <h1>Login</h1>
+        localStorage.setItem("token", "demo-user");
 
-      <input
-        type="email"
-        placeholder="Enter Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        navigate("/dashboard");
 
-      <div className="password-box">
+    };
 
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Enter Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+    return (
 
-        <span
-          className="eye"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? "🙈" : "👁"}
-        </span>
+        <div className="login-page">
 
-      </div>
+            <div className="login-card">
 
-      <button onClick={handleLogin}>
-        Login
-      </button>
+                <div className="login-title">
 
-      <p className="bottom-text">
-        Don't have an account?
-        <Link to="/register"> Sign Up</Link>
-      </p>
+                    <h1>InvestPro</h1>
 
-    </div>
+                    <p>Login to your Investment Account</p>
 
-  );
+                </div>
+
+                <form onSubmit={handleSubmit}>
+
+                    <div className="form-group">
+
+                        <label>Email Address</label>
+
+                        <input
+
+                            type="email"
+
+                            name="email"
+
+                            placeholder="Enter your email"
+
+                            value={formData.email}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Password</label>
+
+                        <div className="password-box">
+
+                            <input
+
+                                type={showPassword ? "text" : "password"}
+
+                                name="password"
+
+                                placeholder="Enter password"
+
+                                value={formData.password}
+
+                                onChange={handleChange}
+
+                                required
+
+                            />
+
+                            <button
+
+                                type="button"
+
+                                className="eye-btn"
+
+                                onClick={() => setShowPassword(!showPassword)}
+
+                            >
+
+                                {showPassword ? "🙈" : "👁"}
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <button
+
+                        className="login-btn"
+
+                        type="submit"
+
+                    >
+
+                        Login
+
+                    </button>
+
+                </form>
+
+                <div className="login-footer">
+
+                    Don't have an account?
+
+                    {" "}
+
+                    <Link to="/register">
+
+                        Register Now
+
+                    </Link>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 

@@ -608,3 +608,40 @@ gap:15px;
 }
 
 }
+.invest-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-decoration:none;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    padding:16px 34px;
+
+    border-radius:14px;
+
+    font-size:17px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+    box-shadow:0 15px 35px rgba(37,99,235,.25);
+
+}
+
+.invest-btn:hover{
+
+    transform:translateY(-4px);
+
+    color:#fff;
+
+    box-shadow:0 22px 45px rgba(37,99,235,.35);
+
+}

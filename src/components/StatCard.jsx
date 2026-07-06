@@ -4,6 +4,8 @@ function StatCard({
 
     amount,
 
+    subtitle,
+
     icon,
 
     color
@@ -16,30 +18,17 @@ function StatCard({
 
             <div className="stat-left">
 
-                <h4>
+                <h5>{title}</h5>
 
-                    {title}
+                <h2>{amount}</h2>
 
-                </h4>
-
-                <h2>
-
-                    {amount}
-
-                </h2>
+                <p>{subtitle}</p>
 
             </div>
 
             <div
-
                 className="stat-icon"
-
-                style={{
-
-                    background:color
-
-                }}
-
+                style={{background:color}}
             >
 
                 {icon}

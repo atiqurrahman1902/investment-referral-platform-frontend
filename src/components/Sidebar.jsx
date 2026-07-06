@@ -1,77 +1,97 @@
-import { NavLink } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Sidebar() {
-  return (
-    <aside className="sidebar">
 
-      <div className="sidebar-logo">
+    const location = useLocation();
 
-        <div className="logo-circle">
-          💼
-        </div>
+    return (
 
-        <div>
+        <aside className="sidebar">
 
-          <h2>InvestPro</h2>
+            <div className="logo">
 
-          <span>Referral Platform</span>
+                <div className="logo-icon">
+                    💼
+                </div>
 
-        </div>
+                <div>
 
-      </div>
+                    <h2>InvestPro</h2>
 
-      <nav className="sidebar-menu">
+                    <p>Referral Platform</p>
 
-        <NavLink to="/dashboard">
-          🏠
-          <span>Dashboard</span>
-        </NavLink>
+                </div>
 
-        <NavLink to="/investment">
-          💰
-          <span>Investment</span>
-        </NavLink>
+            </div>
 
-        <NavLink to="/wallet">
-          💳
-          <span>Wallet</span>
-        </NavLink>
+            <nav className="menu">
 
-        <NavLink to="/referral">
-          👥
-          <span>Referral Tree</span>
-        </NavLink>
+                <Link
+                    to="/dashboard"
+                    className={location.pathname==="/dashboard" ? "active" : ""}
+                >
+                    🏠 Dashboard
+                </Link>
 
-        <NavLink to="/roi">
-          📈
-          <span>ROI History</span>
-        </NavLink>
+                <Link
+                    to="/investment"
+                    className={location.pathname==="/investment" ? "active" : ""}
+                >
+                    💰 Investment
+                </Link>
 
-        <NavLink to="/profile">
-          👤
-          <span>Profile</span>
-        </NavLink>
+                <Link
+                    to="/wallet"
+                    className={location.pathname==="/wallet" ? "active" : ""}
+                >
+                    💳 Wallet
+                </Link>
 
-      </nav>
+                <Link
+                    to="/referral"
+                    className={location.pathname==="/referral" ? "active" : ""}
+                >
+                    👥 Referral Tree
+                </Link>
 
-      <div className="sidebar-footer">
+                <Link
+                    to="/roi"
+                    className={location.pathname==="/roi" ? "active" : ""}
+                >
+                    📈 ROI History
+                </Link>
 
-        <div className="premium-card">
+                <Link
+                    to="/profile"
+                    className={location.pathname==="/profile" ? "active" : ""}
+                >
+                    👤 Profile
+                </Link>
 
-          <h4>Premium Plan</h4>
+            </nav>
 
-          <p>
-            Unlock advanced investment analytics.
-          </p>
+            <div className="premium-card">
 
-          <button>Upgrade</button>
+                <h3>Premium Plan</h3>
 
-        </div>
+                <p>
 
-      </div>
+                    Unlock advanced investment analytics.
 
-    </aside>
-  );
+                </p>
+
+                <button>
+
+                    Upgrade
+
+                </button>
+
+            </div>
+
+        </aside>
+
+    );
+
 }
 
 export default Sidebar;

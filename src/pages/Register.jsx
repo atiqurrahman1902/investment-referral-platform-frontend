@@ -1,119 +1,280 @@
 import { useState } from "react";
-import API from "../services/api";
 import { Link, useNavigate } from "react-router-dom";
+import "../styles/register.css";
 
 function Register() {
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const [showPassword, setShowPassword] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
 
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    mobile: "",
-    password: "",
-    referralCode: "",
-  });
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleRegister = async () => {
+    const [formData, setFormData] = useState({
 
-    try {
+        fullName: "",
 
-      await API.post("/auth/register", user);
+        email: "",
 
-      alert("Registration Successful");
+        mobile: "",
 
-      navigate("/");
+        password: "",
 
-    } catch (error) {
+        confirmPassword: "",
 
-      alert(error.response?.data?.message || "Registration Failed");
+        referralCode: ""
 
-    }
+    });
 
-  };
+    const handleChange = (e) => {
 
-  return (
+        setFormData({
 
-    <div className="form">
+            ...formData,
 
-      <h1>Create Account</h1>
+            [e.target.name]: e.target.value
 
-      <input
-        placeholder="Full Name"
-        onChange={(e) =>
-          setUser({
-            ...user,
-            name: e.target.value,
-          })
+        });
+
+    };
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+
+        if(formData.password !== formData.confirmPassword){
+
+            alert("Passwords do not match");
+
+            return;
+
         }
-      />
 
-      <input
-        placeholder="Email"
-        onChange={(e) =>
-          setUser({
-            ...user,
-            email: e.target.value,
-          })
-        }
-      />
+        alert("Registration Successful");
 
-      <input
-        placeholder="Mobile"
-        onChange={(e) =>
-          setUser({
-            ...user,
-            mobile: e.target.value,
-          })
-        }
-      />
+        navigate("/login");
 
-      <div className="password-box">
+    };
 
-        <input
-          type={showPassword ? "text" : "password"}
-          placeholder="Password"
-          onChange={(e) =>
-            setUser({
-              ...user,
-              password: e.target.value,
-            })
-          }
-        />
+    return(
 
-        <span
-          className="eye"
-          onClick={() => setShowPassword(!showPassword)}
-        >
-          {showPassword ? "🙈" : "👁"}
-        </span>
+        <div className="register-page">
 
-      </div>
+            <div className="register-card">
 
-      <input
-        placeholder="Referral Code (Optional)"
-        onChange={(e) =>
-          setUser({
-            ...user,
-            referralCode: e.target.value,
-          })
-        }
-      />
+                <div className="register-title">
 
-      <button onClick={handleRegister}>
-        Register
-      </button>
+                    <h1>InvestPro</h1>
 
-      <p className="bottom-text">
-        Already have an account?
-        <Link to="/"> Login</Link>
-      </p>
+                    <p>Create Your Investment Account</p>
 
-    </div>
+                </div>
 
-  );
+                <form onSubmit={handleSubmit}>
+
+                    <div className="form-row">
+
+                        <div className="form-group">
+
+                            <label>Full Name</label>
+
+                            <input
+
+                                type="text"
+
+                                name="fullName"
+
+                                placeholder="John Doe"
+
+                                value={formData.fullName}
+
+                                onChange={handleChange}
+
+                                required
+
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>Mobile Number</label>
+
+                            <input
+
+                                type="text"
+
+                                name="mobile"
+
+                                placeholder="9876543210"
+
+                                value={formData.mobile}
+
+                                onChange={handleChange}
+
+                                required
+
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Email Address</label>
+
+                        <input
+
+                            type="email"
+
+                            name="email"
+
+                            placeholder="Enter Email"
+
+                            value={formData.email}
+
+                            onChange={handleChange}
+
+                            required
+
+                        />
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Password</label>
+
+                        <div className="password-box">
+
+                            <input
+
+                                type={showPassword ? "text" : "password"}
+
+                                name="password"
+
+                                placeholder="Enter Password"
+
+                                value={formData.password}
+
+                                onChange={handleChange}
+
+                                required
+
+                            />
+
+                            <button
+
+                                type="button"
+
+                                className="eye-btn"
+
+                                onClick={() => setShowPassword(!showPassword)}
+
+                            >
+
+                                {showPassword ? "🙈" : "👁"}
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Confirm Password</label>
+
+                        <div className="password-box">
+
+                            <input
+
+                                type={showConfirmPassword ? "text" : "password"}
+
+                                name="confirmPassword"
+
+                                placeholder="Confirm Password"
+
+                                value={formData.confirmPassword}
+
+                                onChange={handleChange}
+
+                                required
+
+                            />
+
+                            <button
+
+                                type="button"
+
+                                className="eye-btn"
+
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+
+                            >
+
+                                {showConfirmPassword ? "🙈" : "👁"}
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                    <div className="form-group">
+
+                        <label>Referral Code (Optional)</label>
+
+                        <input
+
+                            type="text"
+
+                            name="referralCode"
+
+                            placeholder="Referral Code"
+
+                            value={formData.referralCode}
+
+                            onChange={handleChange}
+
+                        />
+
+                    </div>
+
+                    <button
+
+                        className="register-btn"
+
+                        type="submit"
+
+                    >
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+                <div className="register-footer">
+
+                    Already have an account?
+
+                    {" "}
+
+                    <Link to="/login">
+
+                        Login Here
+
+                    </Link>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    );
 
 }
 
