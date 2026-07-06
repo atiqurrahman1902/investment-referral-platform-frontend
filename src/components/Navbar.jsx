@@ -1,40 +1,54 @@
-function Navbar(){
+function Navbar({ logout }) {
+  return (
+    <header className="topbar">
 
+      <div>
 
-return(
+        <h1>Investment Dashboard</h1>
 
+        <p>
+          Welcome back! Here's today's investment overview.
+        </p>
 
-<nav>
+      </div>
 
+      <div className="topbar-right">
 
-<h2>
-Investment Platform
-</h2>
+        <button className="notification-btn">
 
+          🔔
 
-<div>
+        </button>
 
+        <div className="profile-box">
 
-<a href="/dashboard">
-Dashboard
-</a>
+          <div className="avatar">
 
+            A
 
-<a href="/">
-Logout
-</a>
+          </div>
 
+          <div>
 
-</div>
+            <h4>Atiq</h4>
 
+            <span>Investor</span>
 
-</nav>
+          </div>
 
+        </div>
 
-)
+        <button
+          className="logout-btn"
+          onClick={logout}
+        >
+          Logout
+        </button>
 
+      </div>
 
+    </header>
+  );
 }
-
 
 export default Navbar;

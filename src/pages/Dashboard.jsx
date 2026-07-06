@@ -1,126 +1,103 @@
-import {useEffect,useState} from "react";
+import { useNavigate } from "react-router-dom";
 
-import API from "../services/api";
-
+import Sidebar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
+import DashboardCards from "../components/DashboardCards";
+import InvestmentChart from "../components/InvestmentChart";
+import PortfolioSummary from "../components/PortfolioSummary";
+import RecentInvestments from "../components/RecentInvestments";
+import ReferralCard from "../components/ReferralCard";
+import RecentActivity from "../components/RecentActivity";
 
-import Card from "../components/Card";
+function Dashboard() {
 
-import Table from "../components/Table";
+    const navigate = useNavigate();
 
-import Chart from "../components/Chart";
+    const logout = () => {
 
+        localStorage.removeItem("token");
 
+        navigate("/");
 
-function Dashboard(){
+    };
 
+    return (
 
-const [data,setData]=useState({});
+        <div className="dashboard">
 
+            <Sidebar />
 
+            <div className="dashboard-main">
 
-useEffect(()=>{
+                <Navbar logout={logout} />
 
+                <div className="dashboard-body">
 
-API.get("/dashboard")
+                    {/* Hero */}
 
-.then(res=>{
+                    <div className="hero">
 
+                        <div>
 
-setData(res.data);
+                            <h1>
 
+                                👋 Welcome Back
 
-})
+                            </h1>
 
+                            <p>
 
-.catch(err=>{
+                                Here's what's happening with your investment
+                                portfolio today.
 
+                            </p>
 
-console.log(err);
+                        </div>
 
+                        <button className="invest-btn">
 
-});
+                            + New Investment
 
+                        </button>
 
-},[]);
+                    </div>
 
+                    {/* Cards */}
 
+                    <DashboardCards />
 
+                    {/* Row 1 */}
 
-return(
+                    <div className="dashboard-grid">
 
-<div>
+                        <InvestmentChart />
 
+                        <PortfolioSummary />
 
-<Navbar/>
+                    </div>
 
+                    {/* Row 2 */}
 
-<h1>
-Dashboard
-</h1>
+                    <RecentInvestments />
 
+                    {/* Row 3 */}
 
+                    <div className="dashboard-grid">
 
-<div className="cards">
+                        <ReferralCard />
 
+                        <RecentActivity />
 
-<Card
+                    </div>
 
-title="Total Investment"
+                </div>
 
-value={data.totalInvestment || 0}
+            </div>
 
-/>
+        </div>
 
-
-
-<Card
-
-title="Wallet Balance"
-
-value={data.walletBalance || 0}
-
-/>
-
-
-
-<Card
-
-title="Total ROI"
-
-value={data.totalROI || 0}
-
-/>
-
-
-
-<Card
-
-title="Level Income"
-
-value={data.levelIncome || 0}
-
-/>
-
-
-
-</div>
-
-
-
-<Chart/>
-
-
-<Table/>
-
-
-
-</div>
-
-
-)
+    );
 
 }
-
 
 export default Dashboard;

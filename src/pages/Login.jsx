@@ -1,135 +1,84 @@
 import { useState } from "react";
-
 import API from "../services/api";
+import { useNavigate, Link } from "react-router-dom";
 
-import { useNavigate } from "react-router-dom";
+function Login() {
 
+  const navigate = useNavigate();
 
-function Login(){
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
+  // Password Show/Hide
+  const [showPassword, setShowPassword] = useState(false);
 
-const navigate = useNavigate();
+  const handleLogin = async () => {
 
+    try {
 
-const [email,setEmail] = useState("");
+      const response = await API.post("/auth/login", {
+        email,
+        password,
+      });
 
-const [password,setPassword] = useState("");
+      localStorage.setItem("token", response.data.token);
 
+      alert("Login Successful");
 
+      navigate("/dashboard");
 
-const handleLogin = async()=>{
+    } catch (error) {
 
+      alert(error.response?.data?.message || "Invalid Login");
 
-try{
+    }
 
+  };
 
-const response = await API.post(
+  return (
 
-"/auth/login",
+    <div className="form">
 
-{
+      <h1>Login</h1>
 
-email,
+      <input
+        type="email"
+        placeholder="Enter Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
 
-password
+      <div className="password-box">
+
+        <input
+          type={showPassword ? "text" : "password"}
+          placeholder="Enter Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+
+        <span
+          className="eye"
+          onClick={() => setShowPassword(!showPassword)}
+        >
+          {showPassword ? "🙈" : "👁"}
+        </span>
+
+      </div>
+
+      <button onClick={handleLogin}>
+        Login
+      </button>
+
+      <p className="bottom-text">
+        Don't have an account?
+        <Link to="/register"> Sign Up</Link>
+      </p>
+
+    </div>
+
+  );
 
 }
-
-);
-
-
-
-localStorage.setItem(
-
-"token",
-
-response.data.token
-
-);
-
-
-
-alert("Login Successful");
-
-
-navigate("/dashboard");
-
-
-
-}
-
-catch(error){
-
-
-alert("Invalid Login");
-
-
-}
-
-
-
-}
-
-
-
-
-return(
-
-
-<div className="form">
-
-
-<h1>
-Login
-</h1>
-
-
-
-<input
-
-type="email"
-
-placeholder="Enter Email"
-
-value={email}
-
-onChange={(e)=>setEmail(e.target.value)}
-
-
-/>
-
-
-
-<input
-
-type="password"
-
-placeholder="Enter Password"
-
-value={password}
-
-onChange={(e)=>setPassword(e.target.value)}
-
-
-/>
-
-
-<button onClick={handleLogin}>
-
-Login
-
-</button>
-
-
-
-</div>
-
-
-)
-
-
-}
-
-
 
 export default Login;

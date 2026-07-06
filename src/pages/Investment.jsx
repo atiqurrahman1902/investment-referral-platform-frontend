@@ -1,187 +1,107 @@
 import { useState } from "react";
+import "../styles/investment.css";
 
-import API from "../services/api";
+function Investment() {
 
-import Navbar from "../components/Navbar";
+  const [amount, setAmount] = useState("");
+  const [plan, setPlan] = useState("Basic");
+  const [duration, setDuration] = useState("1");
 
+  const submitHandler = (e) => {
+    e.preventDefault();
+    alert("Investment Created Successfully");
+  };
 
+  return (
+    <div className="investment-page">
 
-function Investment(){
+      <div className="page-header">
+        <h1>💰 Create Investment</h1>
+        <p>
+          Start growing your wealth by choosing an investment plan.
+        </p>
+      </div>
 
+      <div className="investment-card">
 
-const [form,setForm]=useState({
+        <form onSubmit={submitHandler}>
 
-amount:"",
+          <div className="form-group">
+            <label>Investment Amount</label>
 
-plan:"Basic",
+            <input
+              type="number"
+              placeholder="Enter Amount"
+              value={amount}
+              onChange={(e)=>setAmount(e.target.value)}
+            />
+          </div>
 
-dailyROI:"1"
+          <div className="form-group">
 
-});
+            <label>Select Plan</label>
 
+            <select
+              value={plan}
+              onChange={(e)=>setPlan(e.target.value)}
+            >
+              <option>Basic</option>
+              <option>Silver</option>
+              <option>Gold</option>
+              <option>Diamond</option>
+            </select>
 
+          </div>
 
+          <div className="form-group">
 
-const handleChange=(e)=>{
+            <label>Investment Duration</label>
 
+            <select
+              value={duration}
+              onChange={(e)=>setDuration(e.target.value)}
+            >
+              <option value="1">1 Month</option>
+              <option value="3">3 Months</option>
+              <option value="6">6 Months</option>
+              <option value="12">12 Months</option>
+            </select>
 
-setForm({
+          </div>
 
-...form,
+          <div className="roi-box">
 
-[e.target.name]:e.target.value
+            <div>
 
-});
+              <span>Expected ROI</span>
 
+              <h2>₹500</h2>
 
-};
+            </div>
 
+            <div>
 
+              <span>Plan</span>
 
+              <h2>{plan}</h2>
 
-const submitInvestment = async(e)=>{
+            </div>
 
+          </div>
 
-e.preventDefault();
+          <button className="submit-btn">
 
+            🚀 Invest Now
 
+          </button>
 
-try{
+        </form>
 
+      </div>
 
-const response = await API.post(
-
-"/investment/create",
-
-form
-
-);
-
-
-
-alert(
-"Investment created successfully"
-);
-
-
-
-console.log(response.data);
-
-
+    </div>
+  );
 
 }
-
-
-catch(error){
-
-
-console.log(error);
-
-
-alert(
-"Investment failed"
-);
-
-
-}
-
-
-
-};
-
-
-
-
-
-return(
-
-<div>
-
-
-<Navbar/>
-
-
-<div className="form">
-
-
-<h1>
-Create Investment
-</h1>
-
-
-
-<form onSubmit={submitInvestment}>
-
-
-<input
-
-type="number"
-
-name="amount"
-
-placeholder="Investment Amount"
-
-value={form.amount}
-
-onChange={handleChange}
-
-/>
-
-
-
-<input
-
-type="text"
-
-name="plan"
-
-placeholder="Plan Name"
-
-value={form.plan}
-
-onChange={handleChange}
-
-/>
-
-
-
-<input
-
-type="number"
-
-name="dailyROI"
-
-placeholder="Daily ROI %"
-
-value={form.dailyROI}
-
-onChange={handleChange}
-
-/>
-
-
-
-<button>
-
-Invest
-
-</button>
-
-
-
-</form>
-
-
-</div>
-
-
-</div>
-
-)
-
-
-}
-
-
 
 export default Investment;
