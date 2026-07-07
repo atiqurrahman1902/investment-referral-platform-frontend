@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { loginUser } from "../services/api";
 import "../styles/login.css";
 
 function Login() {
@@ -8,35 +9,59 @@ function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
 
+    const [loading, setLoading] = useState(false);
+
     const [formData, setFormData] = useState({
-
         email: "",
-
         password: ""
-
     });
 
     const handleChange = (e) => {
 
         setFormData({
-
             ...formData,
-
             [e.target.name]: e.target.value
-
         });
 
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        // Temporary Login
+        try {
 
-        localStorage.setItem("token", "demo-user");
+            setLoading(true);
 
-        navigate("/dashboard");
+            const res = await loginUser(formData);
+
+            localStorage.setItem("token", res.data.token);
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
+            );
+
+            alert(res.data.message);
+
+            navigate("/dashboard");
+
+        }
+
+        catch (error) {
+
+            alert(
+                error.response?.data?.message ||
+                "Login Failed"
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
 
     };
 
@@ -61,19 +86,12 @@ function Login() {
                         <label>Email Address</label>
 
                         <input
-
                             type="email"
-
                             name="email"
-
                             placeholder="Enter your email"
-
                             value={formData.email}
-
                             onChange={handleChange}
-
                             required
-
                         />
 
                     </div>
@@ -85,29 +103,18 @@ function Login() {
                         <div className="password-box">
 
                             <input
-
                                 type={showPassword ? "text" : "password"}
-
                                 name="password"
-
                                 placeholder="Enter password"
-
                                 value={formData.password}
-
                                 onChange={handleChange}
-
                                 required
-
                             />
 
                             <button
-
                                 type="button"
-
                                 className="eye-btn"
-
                                 onClick={() => setShowPassword(!showPassword)}
-
                             >
 
                                 {showPassword ? "🙈" : "👁"}
@@ -119,14 +126,12 @@ function Login() {
                     </div>
 
                     <button
-
                         className="login-btn"
-
                         type="submit"
-
+                        disabled={loading}
                     >
 
-                        Login
+                        {loading ? "Logging in..." : "Login"}
 
                     </button>
 

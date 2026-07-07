@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { registerUser } from "../services/api";
 import "../styles/register.css";
 
 function Register() {
@@ -9,6 +10,8 @@ function Register() {
     const [showPassword, setShowPassword] = useState(false);
 
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+    const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
 
@@ -38,11 +41,11 @@ function Register() {
 
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        if(formData.password !== formData.confirmPassword){
+        if (formData.password !== formData.confirmPassword) {
 
             alert("Passwords do not match");
 
@@ -50,13 +53,51 @@ function Register() {
 
         }
 
-        alert("Registration Successful");
+        try {
 
-        navigate("/login");
+            setLoading(true);
+
+            const response = await registerUser({
+
+                name: formData.fullName,
+
+                email: formData.email,
+
+                mobile: formData.mobile,
+
+                password: formData.password,
+
+                referralCode: formData.referralCode
+
+            });
+
+            alert(response.data.message);
+
+            navigate("/login");
+
+        }
+
+        catch (error) {
+
+            alert(
+
+                error.response?.data?.message ||
+
+                "Registration Failed"
+
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
 
     };
 
-    return(
+    return (
 
         <div className="register-page">
 
@@ -79,19 +120,12 @@ function Register() {
                             <label>Full Name</label>
 
                             <input
-
                                 type="text"
-
                                 name="fullName"
-
                                 placeholder="John Doe"
-
                                 value={formData.fullName}
-
                                 onChange={handleChange}
-
                                 required
-
                             />
 
                         </div>
@@ -101,19 +135,12 @@ function Register() {
                             <label>Mobile Number</label>
 
                             <input
-
                                 type="text"
-
                                 name="mobile"
-
                                 placeholder="9876543210"
-
                                 value={formData.mobile}
-
                                 onChange={handleChange}
-
                                 required
-
                             />
 
                         </div>
@@ -125,19 +152,12 @@ function Register() {
                         <label>Email Address</label>
 
                         <input
-
                             type="email"
-
                             name="email"
-
                             placeholder="Enter Email"
-
                             value={formData.email}
-
                             onChange={handleChange}
-
                             required
-
                         />
 
                     </div>
@@ -149,29 +169,18 @@ function Register() {
                         <div className="password-box">
 
                             <input
-
                                 type={showPassword ? "text" : "password"}
-
                                 name="password"
-
                                 placeholder="Enter Password"
-
                                 value={formData.password}
-
                                 onChange={handleChange}
-
                                 required
-
                             />
 
                             <button
-
                                 type="button"
-
                                 className="eye-btn"
-
                                 onClick={() => setShowPassword(!showPassword)}
-
                             >
 
                                 {showPassword ? "🙈" : "👁"}
@@ -189,29 +198,18 @@ function Register() {
                         <div className="password-box">
 
                             <input
-
                                 type={showConfirmPassword ? "text" : "password"}
-
                                 name="confirmPassword"
-
                                 placeholder="Confirm Password"
-
                                 value={formData.confirmPassword}
-
                                 onChange={handleChange}
-
                                 required
-
                             />
 
                             <button
-
                                 type="button"
-
                                 className="eye-btn"
-
                                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-
                             >
 
                                 {showConfirmPassword ? "🙈" : "👁"}
@@ -227,30 +225,22 @@ function Register() {
                         <label>Referral Code (Optional)</label>
 
                         <input
-
                             type="text"
-
                             name="referralCode"
-
                             placeholder="Referral Code"
-
                             value={formData.referralCode}
-
                             onChange={handleChange}
-
                         />
 
                     </div>
 
                     <button
-
                         className="register-btn"
-
                         type="submit"
-
+                        disabled={loading}
                     >
 
-                        Create Account
+                        {loading ? "Creating Account..." : "Create Account"}
 
                     </button>
 
