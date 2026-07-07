@@ -1,39 +1,71 @@
 import axios from "axios";
 
 const API = axios.create({
+
     baseURL: "http://localhost:5000/api",
+
     headers: {
+
         "Content-Type": "application/json",
+
     },
+
 });
 
-// Add token automatically to every request
-API.interceptors.request.use((config) => {
+// ======================================
+// Automatically Attach JWT Token
+// ======================================
 
-    const token = localStorage.getItem("token");
+API.interceptors.request.use(
 
-    if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
+    (config) => {
+
+        const token = localStorage.getItem("token");
+
+        if (token) {
+
+            config.headers.Authorization = `Bearer ${token}`;
+
+        }
+
+        return config;
+
+    },
+
+    (error) => {
+
+        return Promise.reject(error);
+
     }
 
-    return config;
+);
 
-});
-
-// ================= AUTH =================
+// ======================================
+// AUTH APIs
+// ======================================
 
 export const registerUser = (data) =>
+
     API.post("/auth/register", data);
 
 export const loginUser = (data) =>
+
     API.post("/auth/login", data);
 
-// ================= INVESTMENT =================
+// ======================================
+// INVESTMENT APIs
+// ======================================
 
 export const createInvestment = (data) =>
+
     API.post("/investment/create", data);
 
 export const getMyInvestments = () =>
+
     API.get("/investment/my");
+
+// ======================================
+// Export Axios Instance
+// ======================================
 
 export default API;

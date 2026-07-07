@@ -1,16 +1,74 @@
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import StatCard from "../components/StatCard";
+import { getMyInvestments } from "../services/api";
 
 import "../styles/dashboard.css";
 
 function Dashboard() {
 
+    const [investments, setInvestments] = useState([]);
+
+    const [loading, setLoading] = useState(true);
+
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    useEffect(() => {
+
+        loadInvestments();
+
+    }, []);
+
+    const loadInvestments = async () => {
+
+        try {
+
+            const res = await getMyInvestments();
+
+            setInvestments(res.data);
+
+        }
+
+        catch (err) {
+
+            console.log(err);
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
+    };
+
+    const totalInvestment = investments.reduce(
+
+        (sum, item) => sum + item.amount,
+
+        0
+
+    );
+
+    const totalROI = investments.reduce(
+
+        (sum, item) => sum + item.dailyROI,
+
+        0
+
+    );
+
+    const activePlans = investments.filter(
+
+        item => item.status === "Active"
+
+    ).length;
+
     return (
 
-        <DashboardLayout title="Dashboard">
-
-            {/* ==========================================
+        <DashboardLayout title="Dashboard">            {/* ==========================================
                HERO
             ========================================== */}
 
@@ -28,7 +86,7 @@ function Dashboard() {
 
                         <h1>
 
-                            Welcome Back, Atiq 👋
+                            Welcome Back, {user?.name || "Investor"} 👋
 
                         </h1>
 
@@ -36,7 +94,7 @@ function Dashboard() {
 
                             Manage your investments, monitor ROI,
                             track referrals and grow your wealth
-                            using one powerful dashboard.
+                            from one dashboard.
 
                         </p>
 
@@ -85,7 +143,7 @@ function Dashboard() {
 
                     title="Wallet Balance"
 
-                    amount="₹0"
+                    amount={`₹${user?.walletBalance || 0}`}
 
                     subtitle="Available Balance"
 
@@ -99,9 +157,9 @@ function Dashboard() {
 
                     title="Total Investment"
 
-                    amount="₹0"
+                    amount={`₹${totalInvestment}`}
 
-                    subtitle="Active Plans"
+                    subtitle="Invested Amount"
 
                     icon="💰"
 
@@ -113,9 +171,9 @@ function Dashboard() {
 
                     title="Total ROI"
 
-                    amount="₹0"
+                    amount={`${totalROI}%`}
 
-                    subtitle="Lifetime Earnings"
+                    subtitle="Daily ROI"
 
                     icon="📈"
 
@@ -125,13 +183,13 @@ function Dashboard() {
 
                 <StatCard
 
-                    title="Referral Income"
+                    title="Active Plans"
 
-                    amount="₹0"
+                    amount={activePlans}
 
-                    subtitle="Level Income"
+                    subtitle="Running Investments"
 
-                    icon="👥"
+                    icon="📦"
 
                     color="#f97316"
 
@@ -169,13 +227,13 @@ function Dashboard() {
 
                             <p>
 
-                                Investment Chart
+                                Investment Analytics
 
                             </p>
 
                             <small>
 
-                                Graph will appear after backend integration.
+                                Chart will appear after backend integration.
 
                             </small>
 
@@ -199,7 +257,11 @@ function Dashboard() {
 
                             Total Plans
 
-                            <span>0</span>
+                            <span>
+
+                                {investments.length}
+
+                            </span>
 
                         </li>
 
@@ -207,23 +269,35 @@ function Dashboard() {
 
                             Active Plans
 
-                            <span>0</span>
+                            <span>
+
+                                {activePlans}
+
+                            </span>
 
                         </li>
 
                         <li>
 
-                            Team Members
+                            Total Investment
 
-                            <span>0</span>
+                            <span>
+
+                                ₹{totalInvestment}
+
+                            </span>
 
                         </li>
 
                         <li>
 
-                            Monthly ROI
+                            Daily ROI
 
-                            <span>₹0</span>
+                            <span>
+
+                                {totalROI}%
+
+                            </span>
 
                         </li>
 
@@ -231,8 +305,7 @@ function Dashboard() {
 
                 </div>
 
-            </section>
-                        {/* ==========================================
+            </section>            {/* ==========================================
                RECENT INVESTMENTS
             ========================================== */}
 
@@ -246,11 +319,14 @@ function Dashboard() {
 
                     </h3>
 
-                    <button className="view-btn">
+                    <Link
+                        to="/investment"
+                        className="view-btn"
+                    >
 
                         View All
 
-                    </button>
+                    </Link>
 
                 </div>
 
@@ -268,6 +344,8 @@ function Dashboard() {
 
                                 <th>Amount</th>
 
+                                <th>ROI</th>
+
                                 <th>Status</th>
 
                                 <th>Date</th>
@@ -278,15 +356,87 @@ function Dashboard() {
 
                         <tbody>
 
-                            <tr>
+                            {
 
-                                <td colSpan="5">
+                                loading ? (
 
-                                    No Investments Found
+                                    <tr>
 
-                                </td>
+                                        <td colSpan="6">
 
-                            </tr>
+                                            Loading Investments...
+
+                                        </td>
+
+                                    </tr>
+
+                                ) : investments.length > 0 ? (
+
+                                    investments.map((item,index)=>(
+
+                                        <tr key={item._id}>
+
+                                            <td>
+
+                                                {index+1}
+
+                                            </td>
+
+                                            <td>
+
+                                                {item.plan}
+
+                                            </td>
+
+                                            <td>
+
+                                                ₹{item.amount}
+
+                                            </td>
+
+                                            <td>
+
+                                                {item.dailyROI}%
+
+                                            </td>
+
+                                            <td>
+
+                                                {item.status}
+
+                                            </td>
+
+                                            <td>
+
+                                                {
+
+                                                    new Date(item.createdAt)
+
+                                                    .toLocaleDateString()
+
+                                                }
+
+                                            </td>
+
+                                        </tr>
+
+                                    ))
+
+                                ) : (
+
+                                    <tr>
+
+                                        <td colSpan="6">
+
+                                            No Investments Found
+
+                                        </td>
+
+                                    </tr>
+
+                                )
+
+                            }
 
                         </tbody>
 
@@ -320,7 +470,7 @@ function Dashboard() {
 
                         <p>
 
-                            No Referral Members Found
+                            Referral Members will appear here.
 
                         </p>
 
@@ -338,23 +488,37 @@ function Dashboard() {
 
                     <div className="activity">
 
-                        <div className="activity-item">
+                        {
 
-                            ✔ Account Created
+                            investments.length > 0 ? (
 
-                        </div>
+                                investments.slice(0,5).map((item)=>(
 
-                        <div className="activity-item">
+                                    <div
 
-                            ✔ Wallet Activated
+                                        className="activity-item"
 
-                        </div>
+                                        key={item._id}
 
-                        <div className="activity-item">
+                                    >
 
-                            ✔ Ready For Investment
+                                        ✔ Invested ₹{item.amount} in {item.plan} Plan
 
-                        </div>
+                                    </div>
+
+                                ))
+
+                            ) : (
+
+                                <div className="activity-item">
+
+                                    ✔ No Recent Activity
+
+                                </div>
+
+                            )
+
+                        }
 
                     </div>
 
