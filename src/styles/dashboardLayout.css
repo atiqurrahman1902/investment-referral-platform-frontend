@@ -2,71 +2,108 @@
    DASHBOARD LAYOUT
 ===================================================== */
 
-.dashboard-layout {
-    display: flex;
-    min-height: 100vh;
-    background: #f4f7fb;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.dashboard-layout{
+    display:flex;
+    min-height:100vh;
+    background:#f4f7fb;
 }
 
 /* =====================================================
    MAIN WRAPPER
 ===================================================== */
 
-.main-wrapper {
-    flex: 1;
-    margin-left: 280px;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    transition: margin-left 0.35s ease;
+.main-wrapper{
+    flex:1;
+    margin-left:280px;
+    display:flex;
+    flex-direction:column;
+    min-height:100vh;
+    transition:margin-left .35s ease;
 }
 
 /* =====================================================
    CONTENT
 ===================================================== */
 
-.dashboard-content {
-    flex: 1;
-    padding-top: 90px; /* Topbar Height */
-    overflow-x: hidden;
-    overflow-y: auto;
+.dashboard-content{
+    flex:1;
+    width:100%;
+    overflow-x:hidden;
+    overflow-y:auto;
+    padding-top:80px;
 }
 
-.dashboard-body {
-    padding: 30px;
-    max-width: 1600px;
-    width: 100%;
-    margin: 0 auto;
+.dashboard-body{
+    width:100%;
+    max-width:1600px;
+    margin:auto;
+    padding:28px;
+    animation:fadeIn .35s ease;
+}
+
+/* =====================================================
+   ANIMATION
+===================================================== */
+
+@keyframes fadeIn{
+
+    from{
+        opacity:0;
+        transform:translateY(15px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
 }
 
 /* =====================================================
    OVERLAY
 ===================================================== */
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(15, 23, 42, 0.45);
-    backdrop-filter: blur(3px);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 998;
+.overlay{
+
+    position:fixed;
+    inset:0;
+
+    background:rgba(15,23,42,.45);
+
+    backdrop-filter:blur(2px);
+
+    opacity:0;
+    visibility:hidden;
+
+    transition:.3s ease;
+
+    z-index:998;
+
 }
 
-.overlay.active {
-    opacity: 1;
-    visibility: visible;
+.overlay.active{
+
+    opacity:1;
+    visibility:visible;
+
 }
 
 /* =====================================================
    LARGE DESKTOP
 ===================================================== */
 
-@media (min-width: 1440px) {
+@media(min-width:1400px){
 
-    .dashboard-body {
-        padding: 35px 40px;
+    .dashboard-body{
+
+        padding:34px 40px;
+
     }
 
 }
@@ -75,10 +112,18 @@
    LAPTOP
 ===================================================== */
 
-@media (max-width: 1200px) {
+@media(max-width:1200px){
 
-    .dashboard-body {
-        padding: 25px;
+    .main-wrapper{
+
+        margin-left:260px;
+
+    }
+
+    .dashboard-body{
+
+        padding:24px;
+
     }
 
 }
@@ -87,14 +132,18 @@
    TABLET
 ===================================================== */
 
-@media (max-width: 992px) {
+@media(max-width:992px){
 
-    .main-wrapper {
-        margin-left: 260px;
+    .main-wrapper{
+
+        margin-left:85px;
+
     }
 
-    .dashboard-body {
-        padding: 20px;
+    .dashboard-body{
+
+        padding:22px;
+
     }
 
 }
@@ -103,20 +152,24 @@
    MOBILE
 ===================================================== */
 
-@media (max-width:768px){
+@media(max-width:768px){
 
     .main-wrapper{
+
         margin-left:0;
+
     }
 
-}
+    .dashboard-content{
 
-    .dashboard-content {
-        padding-top: 80px;
+        padding-top:72px;
+
     }
 
-    .dashboard-body {
-        padding: 16px;
+    .dashboard-body{
+
+        padding:18px;
+
     }
 
 }
@@ -125,10 +178,18 @@
    SMALL MOBILE
 ===================================================== */
 
-@media (max-width: 480px) {
+@media(max-width:480px){
 
-    .dashboard-body {
-        padding: 14px;
+    .dashboard-content{
+
+        padding-top:68px;
+
+    }
+
+    .dashboard-body{
+
+        padding:14px;
+
     }
 
 }
@@ -137,19 +198,72 @@
    SCROLLBAR
 ===================================================== */
 
-.dashboard-content::-webkit-scrollbar {
-    width: 8px;
+.dashboard-content::-webkit-scrollbar{
+
+    width:8px;
+
 }
 
-.dashboard-content::-webkit-scrollbar-thumb {
-    background: #cbd5e1;
-    border-radius: 20px;
+.dashboard-content::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+    border-radius:20px;
+
 }
 
-.dashboard-content::-webkit-scrollbar-thumb:hover {
-    background: #94a3b8;
+.dashboard-content::-webkit-scrollbar-thumb:hover{
+
+    background:#94a3b8;
+
 }
 
-.dashboard-content::-webkit-scrollbar-track {
-    background: transparent;
+.dashboard-content::-webkit-scrollbar-track{
+
+    background:transparent;
+
+}
+/* =====================================================
+   MOBILE RESPONSIVE FIX
+===================================================== */
+
+@media(max-width:768px){
+
+.dashboard-layout{
+
+    width:100%;
+
+    overflow-x:hidden;
+
+}
+
+.main-wrapper{
+
+    width:100%;
+
+    margin-left:0;
+
+    overflow-x:hidden;
+
+}
+
+.dashboard-content{
+
+    width:100%;
+
+    overflow-x:hidden;
+
+}
+
+.dashboard-body{
+
+    width:100%;
+
+    max-width:100%;
+
+    padding:16px;
+
+    overflow-x:hidden;
+
+}
+
 }

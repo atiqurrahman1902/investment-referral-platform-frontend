@@ -244,3 +244,48 @@ font-size:24px;
 }
 
 }
+/* =====================================================
+   GLOBAL RESPONSIVE FIX
+===================================================== */
+
+html,
+body,
+#root{
+
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+
+}
+
+*{
+
+    box-sizing:border-box;
+
+}
+
+img{
+
+    max-width:100%;
+
+    height:auto;
+
+}
+
+table{
+
+    max-width:100%;
+
+}
+
+.container,
+.dashboard-layout,
+.main-wrapper,
+.dashboard-content,
+.dashboard-body{
+
+    width:100%;
+    max-width:100%;
+    overflow-x:hidden;
+
+}
