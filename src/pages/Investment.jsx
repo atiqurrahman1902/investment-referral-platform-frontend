@@ -1,18 +1,95 @@
 import { useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
+import { createInvestment } from "../services/api";
 import "../styles/investment.css";
 
 function Investment() {
 
     const [amount, setAmount] = useState("");
 
-    const handleSubmit = (e) => {
+    const [selectedPlan, setSelectedPlan] = useState("");
+
+    const [loading, setLoading] = useState(false);
+
+    const getDailyROI = (plan) => {
+
+        switch (plan) {
+
+            case "Silver":
+                return 1;
+
+            case "Gold":
+                return 2;
+
+            case "Platinum":
+                return 3;
+
+            default:
+                return 1;
+
+        }
+
+    };
+
+    const selectPlan = (plan, price) => {
+
+        setSelectedPlan(plan);
+
+        setAmount(price);
+
+    };
+
+    const handleSubmit = async (e) => {
 
         e.preventDefault();
 
-        alert(`Investment of ₹${amount} submitted successfully.`);
+        if (!selectedPlan) {
 
-        setAmount("");
+            alert("Please select an investment plan.");
+
+            return;
+
+        }
+
+        try {
+
+            setLoading(true);
+
+            const response = await createInvestment({
+
+                amount: Number(amount),
+
+                plan: selectedPlan,
+
+                dailyROI: getDailyROI(selectedPlan)
+
+            });
+
+            alert(response.data.message);
+
+            setAmount("");
+
+            setSelectedPlan("");
+
+        }
+
+        catch (error) {
+
+            alert(
+
+                error.response?.data?.message ||
+
+                "Investment Failed"
+
+            );
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
 
     };
 
@@ -22,30 +99,36 @@ function Investment() {
 
             <div className="investment-page">
 
-                {/* ================= HERO ================= */}
+                {/* HERO */}
 
                 <section className="investment-hero">
 
                     <div>
 
                         <span className="hero-tag">
+
                             💰 Investment Portal
+
                         </span>
 
                         <h1>
+
                             Grow Your Wealth
+
                         </h1>
 
                         <p>
+
                             Invest in our secure plans and earn monthly returns
                             with complete transparency.
+
                         </p>
 
                     </div>
 
                 </section>
 
-                {/* ================= PLANS ================= */}
+                {/* PLANS */}
 
                 <h2 className="section-title">
 
@@ -55,7 +138,7 @@ function Investment() {
 
                 <div className="plans-grid">
 
-                    <div className="plan-card">
+                    <div className={`plan-card ${selectedPlan === "Silver" ? "active" : ""}`}>
 
                         <h3>🥉 Silver Plan</h3>
 
@@ -73,16 +156,22 @@ function Investment() {
 
                         </ul>
 
-                        <button>
-                            Select Plan
+                        <button
+                            onClick={() => selectPlan("Silver", 5000)}
+                        >
+
+                            {selectedPlan === "Silver" ? "Selected" : "Select Plan"}
+
                         </button>
 
                     </div>
 
-                    <div className="plan-card active">
+                    <div className={`plan-card ${selectedPlan === "Gold" ? "active" : ""}`}>
 
                         <span className="popular">
+
                             MOST POPULAR
+
                         </span>
 
                         <h3>🥈 Gold Plan</h3>
@@ -101,13 +190,17 @@ function Investment() {
 
                         </ul>
 
-                        <button>
-                            Select Plan
+                        <button
+                            onClick={() => selectPlan("Gold", 25000)}
+                        >
+
+                            {selectedPlan === "Gold" ? "Selected" : "Select Plan"}
+
                         </button>
 
                     </div>
 
-                    <div className="plan-card">
+                    <div className={`plan-card ${selectedPlan === "Platinum" ? "active" : ""}`}>
 
                         <h3>🥇 Platinum Plan</h3>
 
@@ -125,20 +218,26 @@ function Investment() {
 
                         </ul>
 
-                        <button>
-                            Select Plan
+                        <button
+                            onClick={() => selectPlan("Platinum", 100000)}
+                        >
+
+                            {selectedPlan === "Platinum" ? "Selected" : "Select Plan"}
+
                         </button>
 
                     </div>
 
                 </div>
 
-                {/* ================= FORM ================= */}
+                {/* FORM */}
 
                 <div className="investment-form-card">
 
                     <h2>
+
                         Invest Now
+
                     </h2>
 
                     <form onSubmit={handleSubmit}>
@@ -146,20 +245,40 @@ function Investment() {
                         <div className="form-group">
 
                             <label>
+
+                                Selected Plan
+
+                            </label>
+
+                            <input
+
+                                type="text"
+
+                                value={selectedPlan}
+
+                                readOnly
+
+                                placeholder="Select a plan"
+
+                            />
+
+                        </div>
+
+                        <div className="form-group">
+
+                            <label>
+
                                 Investment Amount
+
                             </label>
 
                             <input
 
                                 type="number"
 
-                                placeholder="Enter amount"
-
                                 value={amount}
 
-                                onChange={(e)=>setAmount(e.target.value)}
-
-                                required
+                                readOnly
 
                             />
 
@@ -171,9 +290,19 @@ function Investment() {
 
                             className="invest-submit"
 
+                            disabled={loading}
+
                         >
 
-                            💰 Confirm Investment
+                            {
+
+                                loading
+
+                                    ? "Processing..."
+
+                                    : "💰 Confirm Investment"
+
+                            }
 
                         </button>
 
@@ -181,7 +310,7 @@ function Investment() {
 
                 </div>
 
-                {/* ================= HISTORY ================= */}
+                {/* HISTORY */}
 
                 <div className="investment-history">
 
@@ -229,7 +358,7 @@ function Investment() {
 
                                     <td colSpan="5">
 
-                                        No Investments Found
+                                        Investment history will appear after backend integration.
 
                                     </td>
 
