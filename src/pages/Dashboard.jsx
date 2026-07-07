@@ -1,283 +1,371 @@
 import { Link } from "react-router-dom";
-
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+import DashboardLayout from "../layouts/DashboardLayout";
 import StatCard from "../components/StatCard";
 
-import "../styles/sidebar.css";
-import "../styles/topbar.css";
 import "../styles/dashboard.css";
 
 function Dashboard() {
-  return (
-    <div className="dashboard-container">
-      {/* Sidebar */}
-      <Sidebar />
 
-      {/* Main Content */}
-      <div className="dashboard-content">
-        {/* Topbar */}
-        <Topbar />
+    return (
 
-        {/* Dashboard Body */}
-        <div className="dashboard-body">
+        <DashboardLayout title="Dashboard">
 
-          {/* ================= HERO ================= */}
+            {/* ==========================================
+               HERO
+            ========================================== */}
 
-          <section className="hero">
+            <section className="hero">
 
-            <div className="hero-content">
+                <div className="hero-content">
 
-              <div className="hero-text">
+                    <div className="hero-text">
 
-                <span className="hero-badge">
-                  🚀 Investment Dashboard
-                </span>
+                        <span className="hero-badge">
 
-                <h1>
-                  Welcome Back, Atiq 👋
-                </h1>
+                            🚀 Investment Dashboard
 
-                <p>
-                  Manage your investments, monitor ROI, track your referral
-                  network and grow your earnings from one dashboard.
-                </p>
+                        </span>
 
-                <div className="hero-info">
+                        <h1>
 
-                  <div className="hero-item">
-                    📅 {new Date().toLocaleDateString()}
-                  </div>
+                            Welcome Back, Atiq 👋
 
-                  <div className="hero-item">
-                    🟢 Portfolio Active
-                  </div>
+                        </h1>
 
-                </div>
+                        <p>
 
-              </div>
+                            Manage your investments, monitor ROI,
+                            track referrals and grow your wealth
+                            using one powerful dashboard.
 
-              <div className="hero-action">
+                        </p>
 
-                <Link
-                  to="/investment"
-                  className="invest-btn"
-                >
-                  💰 New Investment
-                </Link>
+                        <div className="hero-info">
 
-              </div>
+                            <div className="hero-item">
 
-            </div>
+                                📅 {new Date().toLocaleDateString()}
 
-          </section>
+                            </div>
 
-          {/* ================= STATS ================= */}
+                            <div className="hero-item">
 
-          <section className="stats">
+                                🟢 Portfolio Active
 
-            <StatCard
-              title="Wallet Balance"
-              amount="₹0"
-              subtitle="Available Balance"
-              icon="💳"
-              color="#2563eb"
-            />
+                            </div>
 
-            <StatCard
-              title="Total Investment"
-              amount="₹0"
-              subtitle="Active Investments"
-              icon="💰"
-              color="#16a34a"
-            />
+                        </div>
 
-            <StatCard
-              title="Total ROI"
-              amount="₹0"
-              subtitle="Lifetime Earnings"
-              icon="📈"
-              color="#7c3aed"
-            />
+                    </div>
 
-            <StatCard
-              title="Referral Income"
-              amount="₹0"
-              subtitle="Referral Earnings"
-              icon="👥"
-              color="#f97316"
-            />
+                    <div className="hero-action">
 
-          </section>
+                        <Link
+                            to="/investment"
+                            className="invest-btn"
+                        >
 
-          {/* ================= CHART & SUMMARY ================= */}
+                            💰 New Investment
 
-          <section className="dashboard-grid">
+                        </Link>
 
-            <div className="dashboard-box">
-
-              <div className="box-header">
-
-                <h3>
-                  📈 Investment Performance
-                </h3>
-
-              </div>
-
-              <div className="chart-placeholder">
-
-                <div>
-
-                  <h1>📊</h1>
-
-                  <p>Investment Chart</p>
-
-                  <small>
-                    Performance graph will appear after backend integration.
-                  </small>
+                    </div>
 
                 </div>
 
-              </div>
+            </section>
 
-            </div>
+            {/* ==========================================
+               STATS
+            ========================================== */}
 
-            <div className="dashboard-box">
+            <section className="stats">
 
-              <h3>
-                💼 Portfolio Summary
-              </h3>
+                <StatCard
 
-              <ul className="summary-list">
+                    title="Wallet Balance"
 
-                <li>
-                  Total Plans
-                  <span>0</span>
-                </li>
+                    amount="₹0"
 
-                <li>
-                  Active Plans
-                  <span>0</span>
-                </li>
+                    subtitle="Available Balance"
 
-                <li>
-                  Referral Members
-                  <span>0</span>
-                </li>
+                    icon="💳"
 
-                <li>
-                  Monthly ROI
-                  <span>₹0</span>
-                </li>
+                    color="#2563eb"
 
-              </ul>
+                />
 
-            </div>
+                <StatCard
 
-          </section>
+                    title="Total Investment"
 
-          {/* ================= RECENT INVESTMENTS ================= */}
+                    amount="₹0"
 
-          <section className="dashboard-box">
+                    subtitle="Active Plans"
 
-            <div className="box-header">
+                    icon="💰"
 
-              <h3>
-                💰 Recent Investments
-              </h3>
+                    color="#16a34a"
 
-              <button className="view-btn">
-                View All
-              </button>
+                />
 
-            </div>
+                <StatCard
 
-            <table>
+                    title="Total ROI"
 
-              <thead>
+                    amount="₹0"
 
-                <tr>
+                    subtitle="Lifetime Earnings"
 
-                  <th>ID</th>
+                    icon="📈"
 
-                  <th>Plan</th>
+                    color="#7c3aed"
 
-                  <th>Amount</th>
+                />
 
-                  <th>Status</th>
+                <StatCard
 
-                  <th>Date</th>
+                    title="Referral Income"
 
-                </tr>
+                    amount="₹0"
 
-              </thead>
+                    subtitle="Level Income"
 
-              <tbody>
+                    icon="👥"
 
-                <tr>
+                    color="#f97316"
 
-                  <td colSpan="5">
-                    No Investment Found
-                  </td>
+                />
 
-                </tr>
+            </section>
 
-              </tbody>
+            {/* ==========================================
+               GRID
+            ========================================== */}
 
-            </table>
+            <section className="dashboard-grid">
 
-          </section>
+                <div className="dashboard-box">
 
-          {/* ================= REFERRAL & ACTIVITY ================= */}
+                    <div className="box-header">
 
-          <section className="dashboard-grid">
+                        <h3>
 
-            <div className="dashboard-box">
+                            📈 Investment Performance
 
-              <h3>
-                👥 Referral Tree
-              </h3>
+                        </h3>
 
-              <div className="empty-box">
+                    </div>
 
-                <h1>👥</h1>
+                    <div className="chart-placeholder">
 
-                <p>No Referral Members</p>
+                        <div>
 
-              </div>
+                            <h1>
 
-            </div>
+                                📊
 
-            <div className="dashboard-box">
+                            </h1>
 
-              <h3>
-                ⚡ Recent Activity
-              </h3>
+                            <p>
 
-              <div className="activity">
+                                Investment Chart
 
-                <div className="activity-item">
-                  ✔ Account Created
+                            </p>
+
+                            <small>
+
+                                Graph will appear after backend integration.
+
+                            </small>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
-                <div className="activity-item">
-                  ✔ Wallet Activated
+                <div className="dashboard-box">
+
+                    <h3>
+
+                        💼 Portfolio Summary
+
+                    </h3>
+
+                    <ul className="summary-list">
+
+                        <li>
+
+                            Total Plans
+
+                            <span>0</span>
+
+                        </li>
+
+                        <li>
+
+                            Active Plans
+
+                            <span>0</span>
+
+                        </li>
+
+                        <li>
+
+                            Team Members
+
+                            <span>0</span>
+
+                        </li>
+
+                        <li>
+
+                            Monthly ROI
+
+                            <span>₹0</span>
+
+                        </li>
+
+                    </ul>
+
                 </div>
 
-                <div className="activity-item">
-                  ✔ Ready For Investment
+            </section>
+                        {/* ==========================================
+               RECENT INVESTMENTS
+            ========================================== */}
+
+            <section className="dashboard-box">
+
+                <div className="box-header">
+
+                    <h3>
+
+                        💰 Recent Investments
+
+                    </h3>
+
+                    <button className="view-btn">
+
+                        View All
+
+                    </button>
+
                 </div>
 
-              </div>
+                <div className="table-responsive">
 
-            </div>
+                    <table>
 
-          </section>
+                        <thead>
 
-        </div>
-      </div>
-    </div>
-  );
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Plan</th>
+
+                                <th>Amount</th>
+
+                                <th>Status</th>
+
+                                <th>Date</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td colSpan="5">
+
+                                    No Investments Found
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+            {/* ==========================================
+               REFERRAL & ACTIVITY
+            ========================================== */}
+
+            <section className="dashboard-grid">
+
+                <div className="dashboard-box">
+
+                    <h3>
+
+                        👥 Referral Tree
+
+                    </h3>
+
+                    <div className="empty-box">
+
+                        <h1>
+
+                            👥
+
+                        </h1>
+
+                        <p>
+
+                            No Referral Members Found
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div className="dashboard-box">
+
+                    <h3>
+
+                        ⚡ Recent Activity
+
+                    </h3>
+
+                    <div className="activity">
+
+                        <div className="activity-item">
+
+                            ✔ Account Created
+
+                        </div>
+
+                        <div className="activity-item">
+
+                            ✔ Wallet Activated
+
+                        </div>
+
+                        <div className="activity-item">
+
+                            ✔ Ready For Investment
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </DashboardLayout>
+
+    );
+
 }
 
 export default Dashboard;

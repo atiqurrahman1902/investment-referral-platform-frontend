@@ -1,121 +1,229 @@
+import DashboardLayout from "../layouts/DashboardLayout";
 import "../styles/wallet.css";
 
 function Wallet() {
-  return (
-    <div className="wallet-page">
 
-      <div className="page-header">
-        <h1>💳 Wallet</h1>
-        <p>
-          Track your wallet balance, earnings and withdrawals.
-        </p>
-      </div>
+    return (
 
-      <div className="wallet-cards">
+        <DashboardLayout title="Wallet">
 
-        <div className="wallet-card blue">
+            {/* ================= HERO ================= */}
 
-          <div>
-            <h4>Wallet Balance</h4>
-            <h2>₹0</h2>
-            <p>Available Balance</p>
-          </div>
+            <section className="wallet-hero">
 
-          <span>💳</span>
+                <div>
 
-        </div>
+                    <span className="wallet-badge">
 
-        <div className="wallet-card green">
+                        💳 Secure Digital Wallet
 
-          <div>
-            <h4>Total Earnings</h4>
-            <h2>₹0</h2>
-            <p>Lifetime Income</p>
-          </div>
+                    </span>
 
-          <span>💰</span>
+                    <h1>
 
-        </div>
+                        My Wallet
 
-        <div className="wallet-card orange">
+                    </h1>
 
-          <div>
-            <h4>Total Withdraw</h4>
-            <h2>₹0</h2>
-            <p>Withdrawn Amount</p>
-          </div>
+                    <p>
 
-          <span>🏦</span>
+                        Deposit funds, withdraw your earnings and
+                        monitor every wallet transaction from one place.
 
-        </div>
+                    </p>
 
-      </div>
+                </div>
 
-      <div className="wallet-grid">
+            </section>
 
-        <div className="wallet-box">
+            {/* ================= BALANCE ================= */}
 
-          <h3>Recent Transactions</h3>
+            <section className="wallet-grid">
 
-          <table>
+                <div className="wallet-card balance">
 
-            <thead>
+                    <h4>
 
-              <tr>
-                <th>Date</th>
-                <th>Type</th>
-                <th>Amount</th>
-                <th>Status</th>
-              </tr>
+                        Available Balance
 
-            </thead>
+                    </h4>
 
-            <tbody>
+                    <h1>
 
-              <tr>
+                        ₹0
 
-                <td colSpan="4">
+                    </h1>
 
-                  No Transactions Found
+                    <p>
 
-                </td>
+                        Last Updated Today
 
-              </tr>
+                    </p>
 
-            </tbody>
+                </div>
 
-          </table>
+                <div className="wallet-card income">
 
-        </div>
+                    <h4>
 
-        <div className="wallet-box">
+                        Total Income
 
-          <h3>Quick Actions</h3>
+                    </h4>
 
-          <button className="wallet-btn">
+                    <h1>
 
-            💵 Withdraw Money
+                        ₹0
 
-          </button>
+                    </h1>
 
-          <button className="wallet-btn">
+                    <p>
 
-            📥 Deposit
+                        Referral + ROI
 
-          </button>
+                    </p>
 
-          <button className="wallet-btn">
+                </div>
 
-            📄 Statement
+                <div className="wallet-card withdraw">
 
-          </button>
+                    <h4>
 
-        </div>
+                        Total Withdraw
 
-      </div>
+                    </h4>
 
-    </div>
-  );
+                    <h1>
+
+                        ₹0
+
+                    </h1>
+
+                    <p>
+
+                        Successfully Withdrawn
+
+                    </p>
+
+                </div>
+
+            </section>
+
+            {/* ================= ACTIONS ================= */}
+
+            <section className="wallet-actions">
+
+                <div className="action-card">
+
+                    <h2>
+
+                        Deposit Money
+
+                    </h2>
+
+                    <p>
+
+                        Add funds to your wallet instantly.
+
+                    </p>
+
+                    <button>
+
+                        Deposit
+
+                    </button>
+
+                </div>
+
+                <div className="action-card">
+
+                    <h2>
+
+                        Withdraw Money
+
+                    </h2>
+
+                    <p>
+
+                        Transfer your earnings directly to your bank.
+
+                    </p>
+
+                    <button>
+
+                        Withdraw
+
+                    </button>
+
+                </div>
+
+            </section>
+
+            {/* ================= HISTORY ================= */}
+
+            <section className="wallet-history">
+
+                <div className="history-header">
+
+                    <h2>
+
+                        Transaction History
+
+                    </h2>
+
+                    <button>
+
+                        View All
+
+                    </button>
+
+                </div>
+
+                <div className="table-responsive">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>ID</th>
+
+                                <th>Type</th>
+
+                                <th>Amount</th>
+
+                                <th>Status</th>
+
+                                <th>Date</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            <tr>
+
+                                <td colSpan="5">
+
+                                    No Transactions Found
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </DashboardLayout>
+
+    );
+
 }
 
 export default Wallet;

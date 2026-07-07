@@ -1,63 +1,79 @@
-import { useNavigate } from "react-router-dom";
+import {
+  FaBars,
+  FaBell,
+  FaSearch,
+  FaUserCircle
+} from "react-icons/fa";
 
-function Topbar() {
+import "../styles/topbar.css";
 
-    const navigate = useNavigate();
+function Topbar({ title, setSidebarOpen }) {
 
-    const logout = () => {
+  return (
 
-        localStorage.removeItem("token");
+    <header className="topbar">
 
-        navigate("/login");
+      {/* Left */}
 
-    };
+      <div className="topbar-left">
 
-    return (
+        <button
+          className="menu-btn"
+          onClick={() => setSidebarOpen(true)}
+        >
 
-        <header className="topbar">
+          <FaBars />
 
-            <div className="topbar-left">
+        </button>
 
-                <h2>Investment Dashboard</h2>
+        <h2>{title}</h2>
 
-                <p>Welcome back! Here's today's investment overview.</p>
+      </div>
 
-            </div>
+      {/* Search */}
 
-            <div className="topbar-right">
+      <div className="search-box">
 
-                <div className="notify">
-                    🔔
-                </div>
+        <FaSearch />
 
-                <div className="user-box">
+        <input
+          type="text"
+          placeholder="Search..."
+        />
 
-                    <div className="avatar">
-                        A
-                    </div>
+      </div>
 
-                    <div className="user-info">
+      {/* Right */}
 
-                        <h4>Atiq</h4>
+      <div className="topbar-right">
 
-                        <span>Investor</span>
+        <div className="notification">
 
-                    </div>
+          <FaBell />
 
-                </div>
+          <span>3</span>
 
-                <button
-                    className="logout-btn"
-                    onClick={logout}
-                >
-                    Logout
-                </button>
+        </div>
 
-            </div>
+        <div className="profile-box">
 
-        </header>
+          <FaUserCircle className="profile-icon"/>
 
-    );
+          <div>
+
+            <h4>Atiq</h4>
+
+            <p>Investor</p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </header>
+
+  );
 
 }
 

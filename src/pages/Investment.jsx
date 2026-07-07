@@ -1,195 +1,253 @@
 import { useState } from "react";
+import DashboardLayout from "../layouts/DashboardLayout";
 import "../styles/investment.css";
 
 function Investment() {
 
-    const [amount,setAmount]=useState("");
+    const [amount, setAmount] = useState("");
 
-    const [plan,setPlan]=useState("Basic");
-
-    const [duration,setDuration]=useState("1");
-
-    const invest=(e)=>{
+    const handleSubmit = (e) => {
 
         e.preventDefault();
 
-        alert("Investment Created Successfully");
+        alert(`Investment of ₹${amount} submitted successfully.`);
 
-    }
+        setAmount("");
 
-    return(
+    };
 
-<div className="investment-page">
+    return (
 
-<div className="page-header">
+        <DashboardLayout title="Investment">
 
-<h1>💰 Create Investment</h1>
+            <div className="investment-page">
 
-<p>
+                {/* ================= HERO ================= */}
 
-Start growing your wealth by investing in one of our plans.
+                <section className="investment-hero">
 
-</p>
+                    <div>
 
-</div>
+                        <span className="hero-tag">
+                            💰 Investment Portal
+                        </span>
 
-<div className="investment-layout">
+                        <h1>
+                            Grow Your Wealth
+                        </h1>
 
-<div className="investment-form-card">
+                        <p>
+                            Invest in our secure plans and earn monthly returns
+                            with complete transparency.
+                        </p>
 
-<h2>Create New Investment</h2>
+                    </div>
 
-<form onSubmit={invest}>
+                </section>
 
-<label>Investment Amount</label>
+                {/* ================= PLANS ================= */}
 
-<input
-type="number"
-placeholder="Enter Amount"
-value={amount}
-onChange={(e)=>setAmount(e.target.value)}
-required
-/>
+                <h2 className="section-title">
 
-<label>Select Plan</label>
+                    Investment Plans
 
-<select
-value={plan}
-onChange={(e)=>setPlan(e.target.value)}
->
+                </h2>
 
-<option>Basic</option>
+                <div className="plans-grid">
 
-<option>Silver</option>
+                    <div className="plan-card">
 
-<option>Gold</option>
+                        <h3>🥉 Silver Plan</h3>
 
-<option>Diamond</option>
+                        <h1>₹5,000</h1>
 
-</select>
+                        <p>5% Monthly ROI</p>
 
-<label>Duration</label>
+                        <ul>
 
-<select
-value={duration}
-onChange={(e)=>setDuration(e.target.value)}
->
+                            <li>✔ Daily ROI Updates</li>
 
-<option>1 Month</option>
+                            <li>✔ Secure Investment</li>
 
-<option>3 Months</option>
+                            <li>✔ Referral Bonus</li>
 
-<option>6 Months</option>
+                        </ul>
 
-<option>12 Months</option>
+                        <button>
+                            Select Plan
+                        </button>
 
-</select>
+                    </div>
 
-<button>
+                    <div className="plan-card active">
 
-Invest Now
+                        <span className="popular">
+                            MOST POPULAR
+                        </span>
 
-</button>
+                        <h3>🥈 Gold Plan</h3>
 
-</form>
+                        <h1>₹25,000</h1>
 
-</div>
+                        <p>7% Monthly ROI</p>
 
-<div className="plan-card">
+                        <ul>
 
-<h2>
+                            <li>✔ Higher Returns</li>
 
-Investment Benefits
+                            <li>✔ Priority Support</li>
 
-</h2>
+                            <li>✔ Referral Income</li>
 
-<div className="benefit">
+                        </ul>
 
-✅ Daily ROI Distribution
+                        <button>
+                            Select Plan
+                        </button>
 
-</div>
+                    </div>
 
-<div className="benefit">
+                    <div className="plan-card">
 
-💰 Secure Investment
+                        <h3>🥇 Platinum Plan</h3>
 
-</div>
+                        <h1>₹1,00,000</h1>
 
-<div className="benefit">
+                        <p>10% Monthly ROI</p>
 
-👥 Referral Commission
+                        <ul>
 
-</div>
+                            <li>✔ Maximum ROI</li>
 
-<div className="benefit">
+                            <li>✔ VIP Support</li>
 
-📈 Automatic ROI
+                            <li>✔ Exclusive Rewards</li>
 
-</div>
+                        </ul>
 
-<div className="benefit">
+                        <button>
+                            Select Plan
+                        </button>
 
-🏦 Withdraw Anytime
+                    </div>
 
-</div>
+                </div>
 
-<div className="benefit">
+                {/* ================= FORM ================= */}
 
-🔒 Bank Level Security
+                <div className="investment-form-card">
 
-</div>
+                    <h2>
+                        Invest Now
+                    </h2>
 
-</div>
+                    <form onSubmit={handleSubmit}>
 
-</div>
+                        <div className="form-group">
 
-<div className="plans">
+                            <label>
+                                Investment Amount
+                            </label>
 
-<div className="plan">
+                            <input
 
-<h3>Basic</h3>
+                                type="number"
 
-<h2>5%</h2>
+                                placeholder="Enter amount"
 
-<p>Monthly ROI</p>
+                                value={amount}
 
-</div>
+                                onChange={(e)=>setAmount(e.target.value)}
 
-<div className="plan">
+                                required
 
-<h3>Silver</h3>
+                            />
 
-<h2>8%</h2>
+                        </div>
 
-<p>Monthly ROI</p>
+                        <button
 
-</div>
+                            type="submit"
 
-<div className="plan">
+                            className="invest-submit"
 
-<h3>Gold</h3>
+                        >
 
-<h2>12%</h2>
+                            💰 Confirm Investment
 
-<p>Monthly ROI</p>
+                        </button>
 
-</div>
+                    </form>
 
-<div className="plan">
+                </div>
 
-<h3>Diamond</h3>
+                {/* ================= HISTORY ================= */}
 
-<h2>18%</h2>
+                <div className="investment-history">
 
-<p>Monthly ROI</p>
+                    <div className="history-header">
 
-</div>
+                        <h2>
 
-</div>
+                            Recent Investments
 
-</div>
+                        </h2>
 
-    )
+                        <button>
+
+                            View All
+
+                        </button>
+
+                    </div>
+
+                    <div className="table-responsive">
+
+                        <table>
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>ID</th>
+
+                                    <th>Plan</th>
+
+                                    <th>Amount</th>
+
+                                    <th>ROI</th>
+
+                                    <th>Status</th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody>
+
+                                <tr>
+
+                                    <td colSpan="5">
+
+                                        No Investments Found
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </DashboardLayout>
+
+    );
 
 }
 

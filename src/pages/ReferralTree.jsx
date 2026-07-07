@@ -1,133 +1,121 @@
+import DashboardLayout from "../layouts/DashboardLayout";
 import "../styles/referral.css";
 
 function ReferralTree() {
-  return (
-    <div className="referral-page">
+    return (
+        <DashboardLayout title="Referral Program">
 
-      <div className="page-header">
+            {/* Referral Link */}
+            <div className="referral-link-card">
 
-        <h1>👥 Referral Network</h1>
+                <h3>Your Referral Link</h3>
 
-        <p>
-          Manage your direct and indirect referral members.
-        </p>
+                <div className="link-box">
+                    <input
+                        type="text"
+                        value="https://investment.com/ref/ATIQ123"
+                        readOnly
+                    />
 
-      </div>
+                    <button
+                        onClick={() =>
+                            navigator.clipboard.writeText(
+                                "https://investment.com/ref/ATIQ123"
+                            )
+                        }
+                    >
+                        Copy
+                    </button>
 
-      {/* Top Cards */}
+                </div>
 
-      <div className="referral-stats">
+            </div>
 
-        <div className="ref-card">
+            {/* Stats */}
 
-          <h4>Total Members</h4>
+            <div className="referral-stats">
 
-          <h2>0</h2>
+                <div className="stat-box">
+                    <h4>Total Referrals</h4>
+                    <span>28</span>
+                </div>
 
-        </div>
+                <div className="stat-box">
+                    <h4>Active Members</h4>
+                    <span>18</span>
+                </div>
 
-        <div className="ref-card">
+                <div className="stat-box">
+                    <h4>Commission Earned</h4>
+                    <span>₹18,500</span>
+                </div>
 
-          <h4>Direct Referrals</h4>
+                <div className="stat-box">
+                    <h4>Pending</h4>
+                    <span>₹2,300</span>
+                </div>
 
-          <h2>0</h2>
+            </div>
 
-        </div>
+            {/* Referral Table */}
 
-        <div className="ref-card">
+            <div className="table-card">
 
-          <h4>Team Business</h4>
+                <div className="table-header">
 
-          <h2>₹0</h2>
+                    <h3>Referral History</h3>
 
-        </div>
+                    <input
+                        type="text"
+                        placeholder="Search member..."
+                    />
 
-        <div className="ref-card">
+                </div>
 
-          <h4>Referral Income</h4>
+                <table>
 
-          <h2>₹0</h2>
+                    <thead>
 
-        </div>
+                        <tr>
+                            <th>Name</th>
+                            <th>Joined</th>
+                            <th>Status</th>
+                            <th>Investment</th>
+                        </tr>
 
-      </div>
+                    </thead>
 
-      {/* Tree */}
+                    <tbody>
 
-      <div className="tree-card">
+                        <tr>
+                            <td>Ahmed</td>
+                            <td>Today</td>
+                            <td><span className="active">Active</span></td>
+                            <td>₹10,000</td>
+                        </tr>
 
-        <h2>Your Referral Tree</h2>
+                        <tr>
+                            <td>Rahul</td>
+                            <td>Yesterday</td>
+                            <td><span className="active">Active</span></td>
+                            <td>₹15,000</td>
+                        </tr>
 
-        <div className="tree-area">
+                        <tr>
+                            <td>John</td>
+                            <td>2 Days Ago</td>
+                            <td><span className="pending">Pending</span></td>
+                            <td>₹0</td>
+                        </tr>
 
-          <div className="tree-user">
+                    </tbody>
 
-            👤
+                </table>
 
-            <h4>You</h4>
+            </div>
 
-            <p>REF123456</p>
-
-          </div>
-
-          <div className="tree-line"></div>
-
-          <div className="empty-node">
-
-            ➕
-
-            <p>No Referral Yet</p>
-
-          </div>
-
-        </div>
-
-      </div>
-
-      {/* Recent Referrals */}
-
-      <div className="recent-referrals">
-
-        <h2>Recent Members</h2>
-
-        <table>
-
-          <thead>
-
-            <tr>
-
-              <th>Name</th>
-
-              <th>Referral ID</th>
-
-              <th>Joining Date</th>
-
-              <th>Status</th>
-
-            </tr>
-
-          </thead>
-
-          <tbody>
-
-            <tr>
-
-              <td colSpan="4">
-
-                No Referral Members
-
-              </td>
-
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-    </div>
-  );
+        </DashboardLayout>
+    );
 }
 
 export default ReferralTree;

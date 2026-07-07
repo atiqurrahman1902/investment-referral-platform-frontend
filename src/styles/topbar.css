@@ -1,12 +1,22 @@
-/* ==========================================
+/* =====================================================
    TOPBAR
-========================================== */
+===================================================== */
 
 .topbar{
 
-    height:90px;
+    position:fixed;
 
-    background:#ffffff;
+    top:0;
+
+    right:0;
+
+    left:280px;
+
+    height:72px;
+
+    background:rgba(255,255,255,.92);
+
+    backdrop-filter:blur(12px);
 
     display:flex;
 
@@ -14,107 +24,131 @@
 
     align-items:center;
 
-    padding:0 35px;
+    padding:0 30px;
 
-    border-radius:20px;
+    z-index:999;
 
-    box-shadow:0 12px 30px rgba(0,0,0,.08);
+    border-bottom:1px solid #e5e7eb;
 
-    margin-bottom:30px;
+    transition:.35s;
 
 }
 
-/* Left */
+/* =====================================================
+   LEFT
+===================================================== */
+
+.topbar-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
 
 .topbar-left h2{
 
-    font-size:36px;
+    font-size:26px;
 
     color:#0f172a;
 
-    margin-bottom:6px;
-
-    font-weight:700;
-
 }
 
-.topbar-left p{
+/* =====================================================
+   MENU BUTTON
+===================================================== */
 
-    color:#64748b;
+.menu-btn{
 
-    font-size:16px;
+    width:44px;
 
-}
+    height:44px;
 
-/* Right */
+    border:none;
 
-.topbar-right{
-
-    display:flex;
-
-    align-items:center;
-
-    gap:20px;
-
-}
-
-/* Notification */
-
-.notify{
-
-    width:55px;
-
-    height:55px;
-
-    border-radius:50%;
-
-    background:#f1f5f9;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    font-size:22px;
-
-}
-
-.notify:hover{
+    border-radius:12px;
 
     background:#2563eb;
 
     color:white;
 
+    cursor:pointer;
+
+    display:none;
+
+    transition:.3s;
+
 }
 
-/* Avatar */
+.menu-btn:hover{
 
-.user-box{
+    background:#1d4ed8;
+
+}
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box{
+
+    width:380px;
+
+    height:46px;
+
+    background:#f8fafc;
+
+    border-radius:14px;
 
     display:flex;
 
     align-items:center;
 
-    gap:15px;
+    gap:12px;
+
+    padding:0 18px;
 
 }
 
-.avatar{
+.search-box input{
 
-    width:58px;
+    flex:1;
 
-    height:58px;
+    border:none;
 
-    border-radius:50%;
+    outline:none;
 
-    background:linear-gradient(135deg,#2563eb,#3b82f6);
+    background:transparent;
 
-    color:white;
+    font-size:15px;
+
+}
+
+/* =====================================================
+   RIGHT
+===================================================== */
+
+.topbar-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:22px;
+
+}
+
+.notification{
+
+    width:46px;
+
+    height:46px;
+
+    border-radius:14px;
+
+    background:#f8fafc;
 
     display:flex;
 
@@ -122,93 +156,155 @@
 
     align-items:center;
 
-    font-size:22px;
+    position:relative;
 
-    font-weight:bold;
-
-    box-shadow:0 10px 25px rgba(37,99,235,.3);
+    cursor:pointer;
 
 }
 
-.user-info h4{
+.notification span{
 
-    margin:0;
+    position:absolute;
 
-    color:#0f172a;
+    top:5px;
 
-    font-size:18px;
+    right:5px;
 
-}
+    width:18px;
 
-.user-info span{
+    height:18px;
 
-    color:#64748b;
-
-    font-size:14px;
-
-}
-
-/* Logout */
-
-.logout-btn{
-
-    border:none;
+    border-radius:50%;
 
     background:#ef4444;
 
     color:white;
 
-    padding:14px 24px;
+    font-size:11px;
 
-    border-radius:12px;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.profile-box{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
 
     cursor:pointer;
 
+}
+
+.profile-icon{
+
+    font-size:42px;
+
+    color:#2563eb;
+
+}
+
+.profile-box h4{
+
     font-size:15px;
 
-    font-weight:600;
+}
 
-    transition:.3s;
+.profile-box p{
+
+    font-size:13px;
+
+    color:#64748b;
 
 }
 
-.logout-btn:hover{
+/* =====================================================
+   TABLET
+===================================================== */
 
-    background:#dc2626;
-
-    transform:translateY(-3px);
-
-}
-
-/* Mobile */
-
-@media(max-width:900px){
+@media(max-width:992px){
 
 .topbar{
 
-flex-direction:column;
-
-height:auto;
-
-padding:20px;
-
-gap:20px;
+left:85px;
 
 }
 
-.topbar-left{
+.search-box{
 
-text-align:center;
+width:250px;
 
 }
 
-.topbar-right{
+}
 
-width:100%;
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:768px){
+
+.topbar{
+
+left:0;
+
+padding:0 18px;
+
+}
+
+.menu-btn{
+
+display:flex;
 
 justify-content:center;
 
-flex-wrap:wrap;
+align-items:center;
+
+}
+
+.search-box{
+
+display:none;
+
+}
+
+.profile-box div{
+
+display:none;
+
+}
+
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media(max-width:480px){
+
+.topbar-left h2{
+
+font-size:20px;
+
+}
+
+.notification{
+
+width:40px;
+
+height:40px;
+
+}
+
+.profile-icon{
+
+font-size:36px;
 
 }
 

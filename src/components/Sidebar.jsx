@@ -1,97 +1,145 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  FaTachometerAlt,
+  FaCoins,
+  FaWallet,
+  FaUsers,
+  FaChartLine,
+  FaUser,
+  FaSignOutAlt,
+  FaCrown,
+} from "react-icons/fa";
+import "../styles/sidebar.css";
 
-function Sidebar() {
+function Sidebar({ sidebarOpen, setSidebarOpen }) {
+  const location = useLocation();
+  const navigate = useNavigate();
 
-    const location = useLocation();
+  const closeSidebar = () => {
+    if (window.innerWidth <= 768) {
+      setSidebarOpen(false);
+    }
+  };
 
-    return (
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
 
-        <aside className="sidebar">
+    navigate("/login");
+  };
 
-            <div className="logo">
+  const menus = [
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: <FaTachometerAlt />,
+    },
+    {
+      name: "Investment",
+      path: "/investment",
+      icon: <FaCoins />,
+    },
+    {
+      name: "Wallet",
+      path: "/wallet",
+      icon: <FaWallet />,
+    },
+    {
+      name: "Referral",
+      path: "/referral",
+      icon: <FaUsers />,
+    },
+    {
+      name: "ROI History",
+      path: "/roi",
+      icon: <FaChartLine />,
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: <FaUser />,
+    },
+  ];
 
-                <div className="logo-icon">
-                    💼
-                </div>
+  return (
+    <aside className={`sidebar ${sidebarOpen ? "active" : ""}`}>
 
-                <div>
+      <div className="sidebar-logo">
 
-                    <h2>InvestPro</h2>
+        <div className="logo-circle">
+          💼
+        </div>
 
-                    <p>Referral Platform</p>
+        <div className="logo-text">
+          <h2>InvestPro</h2>
+          <p>Investment Platform</p>
+        </div>
 
-                </div>
+      </div>
 
-            </div>
+      <nav className="sidebar-nav">
 
-            <nav className="menu">
+        {menus.map((menu) => (
 
-                <Link
-                    to="/dashboard"
-                    className={location.pathname==="/dashboard" ? "active" : ""}
-                >
-                    🏠 Dashboard
-                </Link>
+          <Link
+            key={menu.path}
+            to={menu.path}
+            onClick={closeSidebar}
+            className={
+              location.pathname === menu.path
+                ? "active"
+                : ""
+            }
+          >
+            <span className="menu-icon">
+              {menu.icon}
+            </span>
 
-                <Link
-                    to="/investment"
-                    className={location.pathname==="/investment" ? "active" : ""}
-                >
-                    💰 Investment
-                </Link>
+            <span className="menu-text">
+              {menu.name}
+            </span>
 
-                <Link
-                    to="/wallet"
-                    className={location.pathname==="/wallet" ? "active" : ""}
-                >
-                    💳 Wallet
-                </Link>
+          </Link>
 
-                <Link
-                    to="/referral"
-                    className={location.pathname==="/referral" ? "active" : ""}
-                >
-                    👥 Referral Tree
-                </Link>
+        ))}
 
-                <Link
-                    to="/roi"
-                    className={location.pathname==="/roi" ? "active" : ""}
-                >
-                    📈 ROI History
-                </Link>
+      </nav>
 
-                <Link
-                    to="/profile"
-                    className={location.pathname==="/profile" ? "active" : ""}
-                >
-                    👤 Profile
-                </Link>
+      <div className="sidebar-footer">
 
-            </nav>
+        <div className="premium-card">
 
-            <div className="premium-card">
+          <FaCrown className="premium-icon"/>
 
-                <h3>Premium Plan</h3>
+          <h3>Premium</h3>
 
-                <p>
+          <p>
+            Unlock premium investment features.
+          </p>
 
-                    Unlock advanced investment analytics.
+          <button
+            onClick={() => navigate("/investment")}
+          >
+            Upgrade
+          </button>
 
-                </p>
+        </div>
 
-                <button>
+        <button
+          className="logout-btn"
+          onClick={logout}
+        >
 
-                    Upgrade
+          <FaSignOutAlt/>
 
-                </button>
+          Logout
 
-            </div>
+        </button>
 
-        </aside>
+      </div>
 
-    );
-
+    </aside>
+  );
 }
 
 export default Sidebar;
