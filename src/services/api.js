@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API = axios.create({
 
-    baseURL: "http://localhost:5000/api",
+    baseURL: import.meta.env.VITE_API_URL,
 
     headers: {
 
@@ -32,11 +32,7 @@ API.interceptors.request.use(
 
     },
 
-    (error) => {
-
-        return Promise.reject(error);
-
-    }
+    (error) => Promise.reject(error)
 
 );
 
@@ -45,11 +41,9 @@ API.interceptors.request.use(
 // ======================================
 
 export const registerUser = (data) =>
-
     API.post("/auth/register", data);
 
 export const loginUser = (data) =>
-
     API.post("/auth/login", data);
 
 // ======================================
@@ -57,15 +51,9 @@ export const loginUser = (data) =>
 // ======================================
 
 export const createInvestment = (data) =>
-
     API.post("/investment/create", data);
 
 export const getMyInvestments = () =>
-
     API.get("/investment/my");
-
-// ======================================
-// Export Axios Instance
-// ======================================
 
 export default API;
